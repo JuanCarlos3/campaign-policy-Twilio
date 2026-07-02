@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMS Consent &amp; Sign-Up — Agentic PM R&amp;D</title>
+  <meta name="description" content="SMS consent and sign-up form for Agentic PM R&D — internal participants agree to receive SMS messages for property-management workflows, agent coordination, maintenance simulations, quote requests, and project communications.">
+  <meta name="robots" content="index, follow">
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --card: #ffffff;
+      --text: #1f2733;
+      --muted: #5b6675;
+      --accent: #1d4ed8;
+      --accent-soft: #eef2ff;
+      --border: #e2e6ec;
+      --chip-bg: #0f172a;
+      --chip-text: #ffffff;
+      --error: #b91c1c;
+      --error-soft: #fef2f2;
+      --success: #15803d;
+      --success-soft: #f0fdf4;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.65;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    header.page {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin: 0 0 14px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    main {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      word-break: break-word;
+    }
+    a:hover { text-decoration: none; }
+    a:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .field { margin-bottom: 26px; }
+    .field:last-of-type { margin-bottom: 0; }
+
+    label.field-label,
+    fieldset legend {
+      display: block;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 6px;
+      padding: 0;
+    }
+
+    .required-mark { color: var(--error); }
+
+    .hint {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      font: inherit;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      outline: 3px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+      background: var(--card);
+    }
+
+    fieldset {
+      border: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .choice:last-child { margin-bottom: 0; }
+    .choice:hover { border-color: var(--accent); }
+    .choice input {
+      margin-top: 5px;
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .other-input {
+      margin-top: 8px;
+      display: none;
+    }
+    .other-input.visible { display: block; }
+
+    .consent-box {
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .consent-box .choice {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+    .consent-box .disclosure {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .actions { margin-top: 28px; }
+
+    button[type="submit"] {
+      font: inherit;
+      font-weight: 700;
+      color: var(--chip-text);
+      background: var(--accent);
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 32px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #1e40af; }
+    button[type="submit"]:focus-visible {
+      outline: 3px solid var(--chip-bg);
+      outline-offset: 2px;
+    }
+    button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .status {
+      display: none;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 20px;
+    }
+    .status.visible { display: block; }
+    .status.error {
+      background: var(--error-soft);
+      border: 1px solid var(--error);
+      color: var(--error);
+    }
+    .status p { margin: 0; }
+
+    .success-card {
+      display: none;
+      background: var(--success-soft);
+      border: 1px solid var(--success);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+    .success-card.visible { display: block; }
+    .success-card h2 {
+      margin: 0 0 8px;
+      color: var(--success);
+      font-size: 1.25rem;
+    }
+    .success-card p { margin: 0; color: var(--text); }
+
+    footer.page {
+      margin-top: 28px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer.page p { margin: 0 0 6px; }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .wrap { padding: 20px 14px 48px; }
+      header.page { padding: 24px 20px; }
+      main { padding: 20px 18px; }
+      h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="page">
+      <p class="eyebrow">Agentic PM R&amp;D</p>
+      <h1>SMS Consent &amp; Sign-Up</h1>
+      <p class="intro">Internal participants agree to receive SMS messages for property-management workflows, agent coordination, maintenance simulations, quote requests, and project communications.</p>
+    </header>
+
+    <main>
+      <form id="consent-form" action="https://formsubmit.co/azsmallbusinessentrepreneurs@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New SMS Consent Submission — Agentic PM Sign Up">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="field">
+          <label class="field-label" for="full-name">Full Name <span class="required-mark" aria-hidden="true">*</span></label>
+          <input type="text" id="full-name" name="Full Name" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Email Address <span class="required-mark" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="Email Address" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <fieldset>
+            <legend>Role <span class="required-mark" aria-hidden="true">*</span></legend>
+            <label class="choice"><input type="radio" name="Role" value="Agent Developer" required> Agent Developer</label>
+            <label class="choice"><input type="radio" name="Role" value="Tester 1"> Tester 1</label>
+            <label class="choice"><input type="radio" name="Role" value="Frontend Developer"> Frontend Developer</label>
+            <label class="choice"><input type="radio" name="Role" value="Backend Developer"> Backend Developer</label>
+            <label class="choice"><input type="radio" name="Role" value="Project-controlled test number"> Project-controlled test number</label>
+            <label class="choice"><input type="radio" name="Role" value="Other" id="role-other"> Other</label>
+            <div class="other-input" id="role-other-wrap">
+              <label class="field-label" for="role-other-text" style="font-weight:400;font-size:0.92rem;">Please specify your role</label>
+              <input type="text" id="role-other-text" name="Role (Other)">
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="phone">Phone Number <span class="required-mark" aria-hidden="true">*</span></label>
+          <p class="hint">The mobile number that will receive project SMS messages, e.g. +1 480 555 0123.</p>
+          <input type="tel" id="phone" name="Phone Number" autocomplete="tel" required>
+        </div>
+
+        <div class="field">
+          <fieldset>
+            <legend>Phone Ownership Confirmation <span class="required-mark" aria-hidden="true">*</span></legend>
+            <p class="hint">Do you confirm that you own or control the phone number provided above?</p>
+            <label class="choice"><input type="radio" name="Phone Ownership Confirmation" value="Yes" required> Yes</label>
+            <label class="choice"><input type="radio" name="Phone Ownership Confirmation" value="No"> No</label>
+          </fieldset>
+        </div>
+
+        <div class="field">
+          <fieldset>
+            <legend>SMS Consent <span class="required-mark" aria-hidden="true">*</span></legend>
+            <div class="consent-box">
+              <label class="choice">
+                <input type="checkbox" name="SMS Consent" value="I agree to receive recurring SMS messages from Agentic PM for internal project testing, agent workflow testing, and coordination messages." required>
+                <span>By checking this box, I agree to receive recurring SMS messages from Agentic PM for internal project testing, agent workflow testing, and coordination messages.</span>
+              </label>
+              <p class="disclosure">Message and data rates may apply. Message frequency varies. Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help at any time. See our <a href="index.html">SMS Campaign Policy</a> and <a href="termsofservice.html">Terms of Service</a>.</p>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submit-btn">Submit</button>
+        </div>
+
+        <div class="status error" id="form-error" role="alert">
+          <p>Sorry, your submission could not be sent. Please try again, or email us directly at <a href="mailto:azsmallbusinessentrepreneurs@gmail.com">azsmallbusinessentrepreneurs@gmail.com</a>.</p>
+        </div>
+      </form>
+
+      <div class="success-card" id="form-success" role="status">
+        <h2>Thank you — consent recorded</h2>
+        <p>Your sign-up has been submitted and emailed to the project team. You may now receive project SMS messages at the number you provided. Reply <strong>STOP</strong> at any time to opt out.</p>
+      </div>
+    </main>
+
+    <footer class="page">
+      <p><a href="index.html">SMS Campaign Policy</a> · <a href="termsofservice.html">Terms of Service</a></p>
+      <p>&copy; 2026 Agentic PM R&amp;D — APM Group. Internal research and development SMS project.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById('consent-form');
+      var submitBtn = document.getElementById('submit-btn');
+      var errorBox = document.getElementById('form-error');
+      var successCard = document.getElementById('form-success');
+      var otherRadio = document.getElementById('role-other');
+      var otherWrap = document.getElementById('role-other-wrap');
+      var otherText = document.getElementById('role-other-text');
+
+      form.querySelectorAll('input[name="Role"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          var isOther = otherRadio.checked;
+          otherWrap.classList.toggle('visible', isOther);
+          otherText.required = isOther;
+          if (!isOther) otherText.value = '';
+        });
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        errorBox.classList.remove('visible');
+
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+
+        var data = new FormData(form);
+        data.append('_replyto', document.getElementById('email').value);
+
+        fetch('https://formsubmit.co/ajax/azsmallbusinessentrepreneurs@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+          })
+          .then(function () {
+            form.style.display = 'none';
+            successCard.classList.add('visible');
+            successCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          })
+          .catch(function () {
+            errorBox.classList.add('visible');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit';
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
